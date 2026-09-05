@@ -5,30 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>当日时间进度条 + 番茄钟</title>
 <style>
-/*=====当日时间进度条样式（原样保留）=====*/
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system}
 body {
-    font-family: system-ui, sans-serif;
     background:#f7f8fa;
-    padding:40px;
+    padding:16px; /* 缩小上下内边距，避免Notion裁掉顶部 */
 }
+/*=====当日时间进度条样式=====*/
 .time-card{
-    max-width:720px;
+    max-width:100%;
     background:#ffffff;
-    padding:28px;
-    border-radius:24px;
-    box-shadow:0 4px 16px rgba(0,0,0,0.07);
-    margin-bottom:40px;
+    padding:18px;
+    border-radius:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.06);
+    margin-bottom:20px; /* 减少卡片和番茄钟之间空隙 */
 }
 .info-text{
     display:flex;
     justify-content:space-between;
-    margin-bottom:16px;
-    font-size:22px;
+    margin-bottom:12px;
+    font-size:18px;
     color:#333;
 }
 .progress-wrap{
     width:100%;
-    height:24px;
+    height:20px;
     background:#e9ecef;
     border-radius:999px;
     position:relative;
@@ -43,54 +43,43 @@ body {
     position:absolute;
     top:50%;
     transform:translate(-50%,-50%);
-    font-size:26px;
+    font-size:22px;
     transition:left 0.4s ease;
 }
 
-/*=====番茄钟样式（原样保留）=====*/
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system}
-.tomato-body{
-  background:#ffffff;
-  color:#222;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  min-height:340px;
-  padding:16px;
-}
-.wrap{text-align:center;width:260px;}
+/*=====番茄钟样式，整体缩小尺寸适配Notion=====*/
+.wrap{text-align:center;width:220px;margin:0 auto;}
 .circle-wrap{
   position:relative;
-  width:200px;height:200px;
-  margin:0 auto 16px;
+  width:170px;height:170px;
+  margin:0 auto 12px;
 }
 svg{width:100%;height:100%;transform:rotate(-90deg)}
-.bg{fill:none;stroke:#eee;stroke-width:12}
-.progress{fill:none;stroke:#ff6358;stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 0.3s linear}
+.bg{fill:none;stroke:#eee;stroke-width:10}
+.progress{fill:none;stroke:#ff6358;stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset 0.3s linear}
 .time-text{
   position:absolute;
   top:50%;left:50%;
   transform:translate(-50%,-50%);
-  font-size:36px;
+  font-size:32px;
   font-weight:500;
 }
-.mode{font-size:14px;color:#777;margin-bottom:12px}
-.btn-group{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.mode{font-size:14px;color:#777;margin-bottom:10px}
+.btn-group{display:flex;gap:6px;justify-content:center;flex-wrap:wrap}
 button{
-  padding:8px 14px;
+  padding:7px 12px;
   border-radius:8px;
   border:none;
   background:#efefef;
   cursor:pointer;
-  font-size:14px;
+  font-size:13px;
 }
 button.primary{background:#ff6358;color:white}
 button:hover{opacity:0.85}
 </style>
 </head>
 <body>
-    <!--当日时间进度条模块，完全不变-->
+    <!--当日时间进度条模块-->
     <div class="time-card">
         <div class="info-text">
             <span id="currentTime"></span>
@@ -102,27 +91,25 @@ button:hover{opacity:0.85}
         </div>
     </div>
 
-    <!--番茄钟模块，完全不变-->
-    <div class="tomato-body">
-        <div class="wrap">
-          <div class="circle-wrap">
-            <svg viewBox="0 0 100 100">
-              <circle class="bg" cx="50" cy="50" r="44"></circle>
-              <circle class="progress" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
-            </svg>
-            <div class="time-text" id="time">25:00</div>
-          </div>
-          <div class="mode" id="mode">🍅 工作 25min</div>
-          <div class="btn-group">
-            <button id="start">开始</button>
-            <button id="reset">重置</button>
-            <button id="switch">切换休息</button>
-          </div>
-        </div>
+    <!--番茄钟模块-->
+    <div class="wrap">
+      <div class="circle-wrap">
+        <svg viewBox="0 0 100 100">
+          <circle class="bg" cx="50" cy="50" r="44"></circle>
+          <circle class="progress" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="0"></circle>
+        </svg>
+        <div class="time-text" id="time">25:00</div>
+      </div>
+      <div class="mode" id="mode">🍅 工作 25min</div>
+      <div class="btn-group">
+        <button id="start">开始</button>
+        <button id="reset">重置</button>
+        <button id="switch">切换休息</button>
+      </div>
     </div>
 
 <script>
-//当日时间进度JS（原样复制，无改动）
+//当日时间进度JS
 function updateTimeProgress(){
     const now=new Date();
     let hours=now.getHours();
@@ -162,7 +149,7 @@ function updateTimeProgress(){
 updateTimeProgress();
 setInterval(updateTimeProgress,1000);
 
-//番茄钟JS（原样复制，无改动）
+//番茄钟JS
 const CIRCLE_LEN = 2 * Math.PI * 44;
 const elTime = document.getElementById('time');
 const elMode = document.getElementById('mode');
@@ -259,4 +246,3 @@ btnSwitch.onclick = ()=>{
 render();
 </script>
 </body>
-</html>

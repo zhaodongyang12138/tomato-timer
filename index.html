@@ -7,17 +7,18 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system}
 body {
-    background:#f7f8fa;
-    padding:16px; /* 缩小上下内边距，避免Notion裁掉顶部 */
+    background:transparent;
+    padding:12px;
 }
-/*=====当日时间进度条样式=====*/
+/*=====当日时间进度条样式，灰度突出卡片=====*/
 .time-card{
     max-width:100%;
-    background:#ffffff;
+    background:rgba(245, 245, 245, 0.92);
     padding:18px;
     border-radius:20px;
-    box-shadow:0 3px 12px rgba(0,0,0,0.06);
-    margin-bottom:20px; /* 减少卡片和番茄钟之间空隙 */
+    box-shadow:0 6px 24px rgba(0, 0, 0, 0.18);
+    margin-bottom:20px;
+    filter:grayscale(0.35);
 }
 .info-text{
     display:flex;
@@ -47,8 +48,14 @@ body {
     transition:left 0.4s ease;
 }
 
-/*=====番茄钟样式，整体缩小尺寸适配Notion=====*/
-.wrap{text-align:center;width:220px;margin:0 auto;}
+/*=====番茄钟样式，透明融入Notion=====*/
+.wrap{
+    text-align:center;
+    width:220px;
+    margin:0 auto;
+    background:transparent;
+    padding-top:4px;
+}
 .circle-wrap{
   position:relative;
   width:170px;height:170px;
@@ -246,3 +253,4 @@ btnSwitch.onclick = ()=>{
 render();
 </script>
 </body>
+</html>
